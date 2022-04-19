@@ -1,5 +1,5 @@
 /**
- * Code for the code editors
+ * Код для редакторов кода
  */
 
 (function(){
@@ -26,7 +26,7 @@ UndoManager.prototype = {
 					|| lastAction.length || action.length
 					|| (action.del && lastAction.add) // Different types?
 					|| (action.add && !lastAction.add) // Different types?
-					|| (action.add && action.del) || (lastAction.add && lastAction.del) // Combo actions should not be chained with anything
+					|| (action.add && action.del) || (lastAction.add && lastAction.del) // Комбо-действия не должны быть связаны ни с чем.
 					|| (lastAction.start + lastAction.add.length != action.start + action.del.length); // Different positions?
 
 			if (push) {
@@ -104,7 +104,7 @@ UndoManager.prototype = {
 		else {
 			var element = this.editor.pre;
 
-			// add added chars & remove deleted chars
+			// добавление добавленных символов и удаление удалённых символов
 			element.textContent = element.textContent.splice(start, action.del.length, action.add);
 
 			element.setSelectionRange(start, start + action.add.length);
@@ -132,7 +132,7 @@ UndoManager.prototype = {
 		else {
 			var element = this.editor.pre;
 
-			// remove added chars & add deleted chars
+			// удалить добавленные символы и добавить удалённые символы
 			element.textContent = element.textContent.splice(start, action.add.length, action.del);
 
 			element.setSelectionRange(start, start + action.del.length);
@@ -330,7 +330,7 @@ var _ = window.Editor = function(pre) {
 				}
 			}
 
-			// Show a previewer, if needed
+			// При необходимости покажите программу предварительного просмотра
 			if (self.Previewer) {
 				var selection = getSelection();
 
@@ -419,7 +419,7 @@ var _ = window.Editor = function(pre) {
 					target.onmouseout = function() {
 						previewer.token = this.onmouseout = null;
 
-						// Show the previewer again on the active token
+						// Снова покажите средство предварительного просмотра на активном маркёре
 						var active = Previewer.active;
 
 						if (active) {
@@ -456,7 +456,7 @@ var _ = window.Editor = function(pre) {
 			line = (content.slice(0, ss).match(CRLF) || []).length,
 			height = parseFloat(getComputedStyle(highlighter).height),
 			lineHeight = parseFloat(getComputedStyle(highlighter).lineHeight),
-			// To choose the rendered height, WebKit floors the lineHeight. Copy this behaviour
+			// Для выбора высоты рендеринга WebKit использует значение lineHeight. Скопируйте это поведение
 			lineHeight = lineHeight === height? height : Math.floor(lineHeight);
 
 		highlighter.setAttribute('data-line', line + 1);
@@ -573,7 +573,7 @@ _.actions = {
 		   	&& (start > closeBefore || closeBefore === -1)
 		   && (end < openAfter || openAfter === -1)
 		   ) {
-			// Uncomment
+			// Не комментировать
 			state.before = state.before.splice(start, open.length);
 			state.after = state.after.splice(end, close.length);
 
@@ -609,7 +609,7 @@ _.actions = {
 				}];
 			}
 			else {
-				// Comment whole line
+				// Комментировать всю строку
 				var start = state.before.lastIndexOf('\n') + 1,
 					end = state.after.indexOf('\n');
 
