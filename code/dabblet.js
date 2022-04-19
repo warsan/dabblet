@@ -11,9 +11,9 @@ window.Dabblet = $u.attach({
 	},
 
 	wipe: function() {
-		var question = 'Are you sure? You will lose ' +
-						(gist.saved? '' : 'unsaved changes and ') +
-						'your local draft.';
+		var question = 'Вы уверены? Вы потеряете ' +
+						(gist.saved? '' : 'несохраненные изменения и ') +
+						'ваш местный призыв.';
 
 		if (confirm(question)) {
 			localStorage.removeItem('dabblet.css');
@@ -105,7 +105,7 @@ window.Dabblet = $u.attach({
 
 			result.contentWindow.postMessage(JSON.stringify({
 				action: 'title',
-				data: title + ' ✿ Dabblet result'
+				data: title + ' ✿ Даблетный результат'
 			}), '*');
 
 			if (!raw) {
@@ -212,7 +212,7 @@ window.Dabblet = $u.attach({
 				    isToggle = input.type === 'radio' || input.type === 'checkbox';
 
 				if (!(name in settings)) {
-					// Assign default value
+					// Присвоить значение по умолчанию
 					settings[name] = input.hasAttribute('checked') || !isToggle? input.value : '';
 				}
 
@@ -273,7 +273,7 @@ window.Dabblet = $u.attach({
 				}
 			});
 
-			// Update cached settings
+			// Обновление кэшированных настроек
 			this.cached = this.current();
 		},
 
@@ -306,7 +306,7 @@ window.Dabblet = $u.attach({
 				}
 			}
 
-			// Super-dirty fix for Safari bug. See issue #7. Gonna wash hands now, kthxbai
+			// Супер-грязное исправление ошибки в Safari. Смотрите выпуск №7. Сейчас помою руки, kthxbai
 			if (PrefixFree.Prefix === 'Webkit') {
 				document.body.style.WebkitAnimation = 'bugfix infinite 1s';
 				setTimeout(function(){
@@ -339,7 +339,7 @@ window.onbeforeunload = function(){
 		css.onblur();
 		html.onblur();
 		javascript.onblur();
-		// return 'You have unsaved changes.';
+		// return 'У вас есть несохраненные изменения.';
 	}
 };
 
@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				gist.load();
 			}
 			else {
-				// CORS not supported, redirect to full page result (see #162)
+				// CORS не поддерживается, перенаправление на результат полной страницы (см. #162)
 				location.href = location.href.replace('://', '://result.');
 			}
 		}
@@ -464,7 +464,7 @@ $$('.editor.page > pre').forEach(function(editor){
 	});
 });
 
-// Note: Has to be keydown to be able to cancel the event
+// Примечание: Должна быть нажата клавиша, чтобы можно было отменить событие
 document.addEventListener('keydown', function(evt) {
 	var code = evt.keyCode,
 		character = String.fromCharCode(code),
@@ -534,8 +534,8 @@ document.addEventListener('keydown', function(evt) {
 				evt.stopPropagation();
 				evt.preventDefault();
 
-				// Blur the focus so it doesn't end up on the result <iframe>,
-				// which would stop propogation of further keypress events.
+				// Размыть фокус, чтобы он не попал на результат <iframe>,
+				// что остановит распространение дальнейших событий, связанных с нажатием клавиш.
 				if (page === 'result') {
 					document.activeElement.blur();
 				}
